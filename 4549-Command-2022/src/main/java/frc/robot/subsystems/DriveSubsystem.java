@@ -14,6 +14,8 @@ public class DriveSubsystem extends SubsystemBase {
    * @return */
   final Spark driveLeftMotor = new Spark(0);
   final Spark driveRightMotor = new Spark(1);
+  final Spark driveBackRightMotor = new Spark(2);
+  final Spark driveBackLeftMotor = new Spark(3);
   final Encoder rightEncoder = new Encoder(0, 1);
   final Encoder leftEncoder = new Encoder(2, 3);
   final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.128 * Math.PI;
@@ -24,6 +26,8 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
    driveRightMotor.setInverted(false);
    driveLeftMotor.setInverted(true);
+   driveBackLeftMotor.setInverted(true);
+   driveBackRightMotor.setInverted(false);
    leftEncoder.setReverseDirection(false);
    rightEncoder.setReverseDirection(true);
   }
@@ -35,6 +39,8 @@ public class DriveSubsystem extends SubsystemBase {
     public void setMotors(double leftSpeed, double rightSpeed){
       driveLeftMotor.set(leftSpeed);
       driveRightMotor.set(rightSpeed);
+      driveBackRightMotor.set(leftSpeed);
+      driveBackLeftMotor.set(rightSpeed);
     }
   @Override
   public void simulationPeriodic() {
