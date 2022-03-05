@@ -32,12 +32,20 @@ public class ArcadeDriveCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     double realTimeSpeed = speedFunction.get();
     double realTimeTurn = turnFunction.get();
 
-    double left = realTimeSpeed + realTimeTurn;
-    double right = realTimeSpeed - realTimeTurn;
+    double left = realTimeSpeed - realTimeTurn;
+    double right = realTimeSpeed + realTimeTurn;
+    if (Math.abs(realTimeSpeed) > 0.05){
+      realTimeSpeed = 0;
+    }
+    if (Math.abs(realTimeTurn) > 0.05){
+      realTimeTurn = 0;
+    }
     driveSubsystem.setMotors(left, right);
+    
   }
 
   // Called once the command ends or is interrupted.
